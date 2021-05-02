@@ -1,0 +1,63 @@
+<div class="container mt-5 bg-light">
+  <div class="row">
+
+    <div class="col-md-6">
+
+      <h3 class="text-center">Formulario de Notas</h3>
+      <br />
+
+      <label><strong>Ingrese la Materia:</strong></label>
+      <input [class.is-invalid]="ValidacionNulos" [ngClass]="ValidacionNulos ? 'is-invalidad' : 'is-valid' " type="text" [(ngModel)]="Materia" class="form-control mt-2" placeholder="Materia">
+      <div class="invalid-feedback">
+        {{ValidarNulos}}
+      </div>
+
+      <br />
+
+      <label><strong>Ingrese su calificación final:</strong></label>
+      <input type="number" [class.is-invalid]="ValidacionNulos" [class.is-invalid]="Validacion" [ngClass]="ValidacionNulos ? 'is-invalidad' : 'is-valid' " [(ngModel)]="Calificacion" class="form-control mt-2" placeholder="Calificación Final" (key.enter)="AgregarNota()">
+      <div class="invalid-feedback">
+        {{Validar}}{{ValidarNulos}}
+      </div>
+
+      <br />
+
+      <div class="d-flex justify-content-center">
+        <button (click)="AgregarNota()" class="btn btn-success"><i class="bi bi-plus-circle"></i> Agregar</button>
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <h3 class="text-center">Notas</h3>
+        <br />
+        <div *ngIf="ListNotas.length === 0" class="text-center p-2" style="background-color:silver;">
+          No hay notas que mostrar...
+        </div>
+
+        <table *ngIf="ListNotas.length >= 1" class="table table-bordered table-hover">
+          <thead class="bg-dark">
+            <tr>
+              <td>#</td>
+              <td>Materia</td>
+              <td>Calificación</td>
+              <td>Acciones</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let nota of ListNotas; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{nota.Materia}}</td>
+              <td><span [ngClass]="nota.Calificacion >= 90 ? 'badge bg-success' : nota.Calificacion >= 80 ? 'badge bg-warning' : 'badge bg-danger' ">{{nota.Calificacion}}</span></td>
+              <td class="d-flex justify-content-center cursor">
+                <i class="bi bi-trash" style="color:red;" (click)="EliminarNota(i)"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+    </div>
+
+  </div>
+</div>
